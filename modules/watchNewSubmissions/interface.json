@@ -24,10 +24,5 @@
         "type": "collection",
         "label": "Form Fields",
         "spec": []
-    },
-    {
-        "name": "edit_link",
-        "type": "url",
-        "label": "Edit Link"
     }
 ]
