@@ -9,7 +9,7 @@
             "label": "{{item.name}}",
             "value": "{{item.id}}"
         },
-        "iterate": "{{body.data}}",
+        "iterate": "{{body}}",
         "error": {
             "message": "{{ifempty(body.message, statusCode)}}"
         }
