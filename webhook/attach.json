@@ -1,0 +1,20 @@
+{
+    "url": "{{ifempty(connection.baseUrl, 'https://api.opnform.com')}}/external/make/webhook",
+    "method": "POST",
+    "headers": {
+        "Authorization": "Bearer {{connection.apiKey}}",
+        "Content-Type": "application/json"
+    },
+    "body": {
+        "form_id": "{{parameters.formId}}",
+        "hookUrl": "{{webhook.url}}"
+    },
+    "response": {
+        "data": {
+            "externalHookId": "{{body.integration_id}}"
+        },
+        "error": {
+            "message": "{{ifempty(body.message, statusCode)}}"
+        }
+    }
+}

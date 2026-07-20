@@ -1,0 +1,115 @@
+{
+    "fileVersion": 1,
+    "generalCodeFiles": {
+        "base": "app.json",
+        "common": null,
+        "readme": "README.md",
+        "groups": null
+    },
+    "components": {
+        "connection": {
+            "apiKeyAuth": {
+                "label": "OpnForm API Key",
+                "connectionType": "basic",
+                "codeFiles": {
+                    "communication": "connection/communication.json",
+                    "params": "connection/parameters.json",
+                    "common": null
+                }
+            }
+        },
+        "webhook": {
+            "newSubmission": {
+                "label": "New Submission",
+                "webhookType": "web",
+                "connection": "apiKeyAuth",
+                "codeFiles": {
+                    "params": "webhook/parameters.json",
+                    "attach": "webhook/attach.json",
+                    "detach": "webhook/detach.json"
+                }
+            }
+        },
+        "module": {
+            "watchNewSubmissions": {
+                "label": "Watch New Submissions",
+                "description": "Triggers when a new form submission is received.",
+                "moduleType": "instant_trigger",
+                "connection": "apiKeyAuth",
+                "webhook": "newSubmission",
+                "codeFiles": {
+                    "communication": "modules/watchNewSubmissions/communication.json",
+                    "mappableParams": "modules/watchNewSubmissions/expect.json",
+                    "interface": "modules/watchNewSubmissions/interface.json",
+                    "samples": "modules/watchNewSubmissions/samples.json"
+                }
+            }
+        },
+        "rpc": {
+            "listWorkspaces": {
+                "label": "List Workspaces",
+                "connection": "apiKeyAuth",
+                "codeFiles": {
+                    "communication": "rpcs/listWorkspaces.json"
+                }
+            },
+            "listForms": {
+                "label": "List Forms",
+                "connection": "apiKeyAuth",
+                "codeFiles": {
+                    "communication": "rpcs/listForms.json"
+                }
+            }
+        },
+        "function": {},
+        "endpoint": {}
+    },
+    "origins": [
+        {
+            "label": "Testing",
+            "baseUrl": "https://eu1.make.com/api",
+            "appId": "opnform-test-b1vi3x",
+            "appVersion": 1,
+            "apikeyFile": ".secrets/apikey",
+            "idMapping": {
+                "connection": [
+                    {
+                        "local": "apiKeyAuth",
+                        "remote": "opnform-test-b1vi3x"
+                    }
+                ],
+                "module": [
+                    {
+                        "local": "watchNewSubmissions",
+                        "remote": "watchNewSubmissions"
+                    }
+                ],
+                "function": [],
+                "rpc": [
+                    {
+                        "local": "listWorkspaces",
+                        "remote": "listWorkspaces"
+                    },
+                    {
+                        "local": "listForms",
+                        "remote": "listForms"
+                    }
+                ],
+                "webhook": [
+                    {
+                        "local": "newSubmission",
+                        "remote": "opnform-test-b1vi3x"
+                    }
+                ],
+                "endpoint": []
+            }
+        },
+        {
+            "label": "Production",
+            "baseUrl": "https://eu1.make.com/api",
+            "appId": "opnform",
+            "appVersion": 1,
+            "apikeyFile": ".secrets/apikey"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "url": "{{ifempty(connection.baseUrl, 'https://api.opnform.com')}}/external/make/webhook",
+    "method": "DELETE",
+    "headers": {
+        "Authorization": "Bearer {{connection.apiKey}}",
+        "Content-Type": "application/json"
+    },
+    "body": {
+        "form_id": "{{parameters.formId}}",
+        "hookUrl": "{{webhook.url}}"
+    },
+    "response": {
+        "error": {
+            "message": "{{ifempty(body.message, statusCode)}}"
+        }
+    }
+}

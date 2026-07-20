@@ -1,0 +1,23 @@
+{
+    "form_id": 1,
+    "form_title": "Contact Form",
+    "form_slug": "contact-form",
+    "submission_id": 42,
+    "data": {
+        "abc123": {
+            "value": "Jane Doe",
+            "name": "Name",
+            "type": "text"
+        },
+        "def456": {
+            "value": "jane@example.com",
+            "name": "Email",
+            "type": "email"
+        },
+        "ghi789": {
+            "value": "Hello, I have a question.",
+            "name": "Message",
+            "type": "text"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "OpnForm",
+    "label": "OpnForm",
+    "description": "OpnForm is a free, open-source form builder. Connect your forms to Make scenarios to automate workflows triggered by form submissions.",
+    "version": "1.0.0",
+    "theme": "#3b82f6",
+    "categories": [
+        "forms-and-surveys"
+    ],
+    "baseUrl": "https://api.opnform.com"
+}
