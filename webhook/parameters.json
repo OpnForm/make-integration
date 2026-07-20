@@ -1,19 +1,18 @@
 [
     {
-        "name": "formId",
+        "name": "workspaceId",
         "type": "select",
-        "label": "Form",
+        "label": "Workspace",
         "required": true,
         "options": {
-            "store": "rpc://listForms",
+            "store": "rpc://listWorkspaces",
             "nested": [
                 {
-                    "name": "workspaceId",
+                    "name": "formId",
                     "type": "select",
-                    "label": "Workspace",
-                    "options": {
-                        "store": "rpc://listWorkspaces"
-                    }
+                    "label": "Form",
+                    "required": true,
+                    "options": "rpc://listForms"
                 }
             ]
         }

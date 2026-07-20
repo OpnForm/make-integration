@@ -3,7 +3,7 @@
         "name": "apiKey",
         "type": "password",
         "label": "OpnForm API Key",
-        "help": "Generate an API key from your [OpnForm account settings](https://opnform.com/settings/access-tokens).",
+        "help": "Generate an API key from your [OpnForm account settings](https://opnform.com/home?user-settings=access-tokens).",
         "required": true
     },
     {

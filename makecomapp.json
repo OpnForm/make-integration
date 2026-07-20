@@ -22,6 +22,7 @@
             "newSubmission": {
                 "label": "New Submission",
                 "webhookType": "web",
+                "connection": "apiKeyAuth",
                 "codeFiles": {
                     "params": "webhook/parameters.json",
                     "attach": "webhook/attach.json",
