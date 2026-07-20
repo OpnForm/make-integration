@@ -1,12 +1,7 @@
 [
     {
-        "name": "id",
-        "type": "uinteger",
-        "label": "Submission ID"
-    },
-    {
         "name": "form_id",
-        "type": "text",
+        "type": "uinteger",
         "label": "Form ID"
     },
     {
@@ -15,14 +10,24 @@
         "label": "Form Title"
     },
     {
-        "name": "answers",
+        "name": "form_slug",
+        "type": "text",
+        "label": "Form Slug"
+    },
+    {
+        "name": "submission_id",
+        "type": "uinteger",
+        "label": "Submission ID"
+    },
+    {
+        "name": "data",
         "type": "collection",
-        "label": "Answers",
+        "label": "Form Fields",
         "spec": []
     },
     {
-        "name": "created_at",
-        "type": "date",
-        "label": "Submitted At"
+        "name": "edit_link",
+        "type": "url",
+        "label": "Edit Link"
     }
 ]

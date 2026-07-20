@@ -1,5 +1,5 @@
 {
-    "output": "{{body.data}}",
+    "output": "{{body}}",
     "respond": {
         "status": 200,
         "body": {

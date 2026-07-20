@@ -1,11 +1,24 @@
 {
-    "id": 42,
-    "form_id": "abc123",
+    "form_id": 1,
     "form_title": "Contact Form",
-    "answers": {
-        "name": "Jane Doe",
-        "email": "jane@example.com",
-        "message": "Hello, I have a question about your product."
+    "form_slug": "contact-form",
+    "submission_id": 42,
+    "data": {
+        "abc123": {
+            "value": "Jane Doe",
+            "name": "Name",
+            "type": "text"
+        },
+        "def456": {
+            "value": "jane@example.com",
+            "name": "Email",
+            "type": "email"
+        },
+        "ghi789": {
+            "value": "Hello, I have a question.",
+            "name": "Message",
+            "type": "text"
+        }
     },
-    "created_at": "2025-07-20T10:30:00.000Z"
+    "edit_link": "https://opnform.com/forms/contact-form/submissions/42/edit"
 }
