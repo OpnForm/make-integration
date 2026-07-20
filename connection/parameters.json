@@ -1,0 +1,16 @@
+[
+    {
+        "name": "apiKey",
+        "type": "password",
+        "label": "OpnForm API Key",
+        "help": "Generate an API key from your [OpnForm account settings](https://opnform.com/settings/access-tokens).",
+        "required": true
+    },
+    {
+        "name": "baseUrl",
+        "type": "url",
+        "label": "API Base URL",
+        "help": "Leave empty for OpnForm Cloud. For self-hosted instances, enter your API URL (e.g. `https://api.your-domain.com`).",
+        "default": "https://api.opnform.com"
+    }
+]

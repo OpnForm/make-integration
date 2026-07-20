@@ -1,0 +1,11 @@
+{
+    "id": 42,
+    "form_id": "abc123",
+    "form_title": "Contact Form",
+    "answers": {
+        "name": "Jane Doe",
+        "email": "jane@example.com",
+        "message": "Hello, I have a question about your product."
+    },
+    "created_at": "2025-07-20T10:30:00.000Z"
+}

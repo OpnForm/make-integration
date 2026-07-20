@@ -1,0 +1,9 @@
+{
+    "output": "{{body.data}}",
+    "respond": {
+        "status": 200,
+        "body": {
+            "ok": true
+        }
+    }
+}

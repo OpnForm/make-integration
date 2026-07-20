@@ -1,0 +1,28 @@
+[
+    {
+        "name": "id",
+        "type": "uinteger",
+        "label": "Submission ID"
+    },
+    {
+        "name": "form_id",
+        "type": "text",
+        "label": "Form ID"
+    },
+    {
+        "name": "form_title",
+        "type": "text",
+        "label": "Form Title"
+    },
+    {
+        "name": "answers",
+        "type": "collection",
+        "label": "Answers",
+        "spec": []
+    },
+    {
+        "name": "created_at",
+        "type": "date",
+        "label": "Submitted At"
+    }
+]

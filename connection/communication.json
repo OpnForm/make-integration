@@ -1,0 +1,19 @@
+{
+    "url": "{{ifempty(parameters.baseUrl, 'https://api.opnform.com')}}/external/make/validate",
+    "headers": {
+        "Authorization": "Bearer {{parameters.apiKey}}"
+    },
+    "response": {
+        "metadata": {
+            "value": "'{{body.name}}' ({{body.email}})"
+        },
+        "error": {
+            "message": "{{body.message}}"
+        }
+    },
+    "log": {
+        "sanitize": [
+            "request.headers.Authorization"
+        ]
+    }
+}

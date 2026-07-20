@@ -1,0 +1,17 @@
+{
+    "url": "{{ifempty(connection.baseUrl, 'https://api.opnform.com')}}/external/make/workspaces",
+    "method": "GET",
+    "headers": {
+        "Authorization": "Bearer {{connection.apiKey}}"
+    },
+    "response": {
+        "output": {
+            "label": "{{item.name}}",
+            "value": "{{item.id}}"
+        },
+        "iterate": "{{body.data}}",
+        "error": {
+            "message": "{{ifempty(body.message, statusCode)}}"
+        }
+    }
+}
