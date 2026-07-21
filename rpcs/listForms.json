@@ -1,20 +1,22 @@
 {
-    "url": "{{ifempty(connection.baseUrl, 'https://api.opnform.com')}}/external/make/forms",
+    "url": "{{ifempty(connection.baseUrl, 'https://api.opnform.com')}}/open/workspaces/{{parameters.workspaceId}}/forms",
     "method": "GET",
     "headers": {
         "Authorization": "Bearer {{connection.apiKey}}"
     },
     "qs": {
-        "workspace_id": "{{parameters.workspaceId}}"
+        "page": "{{parameters.page}}"
     },
     "response": {
         "output": {
-            "label": "{{item.name}}",
+            "label": "{{item.title}}",
             "value": "{{item.id}}"
         },
-        "iterate": "{{body}}",
-        "error": {
-            "message": "{{ifempty(body.message, statusCode)}}"
-        }
+        "iterate": "{{body.data}}"
+    },
+    "pagination": {
+        "mergeWithParent": true,
+        "url": "{{body.next_page_url}}",
+        "condition": "{{body.next_page_url}}"
     }
 }

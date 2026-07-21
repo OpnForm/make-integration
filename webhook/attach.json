@@ -1,20 +1,22 @@
 {
-    "url": "{{ifempty(connection.baseUrl, 'https://api.opnform.com')}}/external/make/webhook",
+    "url": "{{ifempty(connection.baseUrl, 'https://api.opnform.com')}}/open/forms/{{parameters.formId}}/integrations",
     "method": "POST",
     "headers": {
         "Authorization": "Bearer {{connection.apiKey}}",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Accept": "application/json"
     },
     "body": {
-        "form_id": "{{parameters.formId}}",
-        "hookUrl": "{{webhook.url}}"
+        "integration_id": "make",
+        "status": "active",
+        "logic": null,
+        "data": {
+            "webhook_url": "{{webhook.url}}"
+        }
     },
     "response": {
         "data": {
-            "externalHookId": "{{body.integration_id}}"
-        },
-        "error": {
-            "message": "{{ifempty(body.message, statusCode)}}"
+            "externalHookId": "{{body.form_integration.id}}"
         }
     }
 }

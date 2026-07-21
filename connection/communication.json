@@ -1,11 +1,11 @@
 {
-    "url": "{{ifempty(parameters.baseUrl, 'https://api.opnform.com')}}/external/make/validate",
+    "url": "{{ifempty(parameters.baseUrl, 'https://api.opnform.com')}}/open/workspaces",
     "headers": {
         "Authorization": "Bearer {{parameters.apiKey}}"
     },
     "response": {
         "metadata": {
-            "value": "'{{body.name}}' ({{body.email}})"
+            "value": "{{body.length}} workspace(s)"
         },
         "error": {
             "message": "{{body.message}}"

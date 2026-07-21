@@ -7,48 +7,46 @@ This app provides a **"Watch New Submissions"** instant trigger so Make users ca
 ## How It Works
 
 1. User searches "OpnForm" in Make's module picker
-2. Creates a connection using their OpnForm API key
+2. Creates a connection using their OpnForm API key (Sanctum token)
 3. Selects a workspace and form from dynamic dropdowns
-4. Make auto-registers a webhook URL with OpnForm's API
+4. Make auto-registers a webhook via OpnForm's standard integration API
 5. On each form submission, OpnForm POSTs data to Make's webhook
 6. When the scenario is deleted, Make auto-unregisters the webhook
+
+## Architecture
+
+This integration follows the same lightweight pattern as OpnForm's Activepieces integration. It uses OpnForm's **existing `/open/*` API** -- no dedicated Make endpoints are needed.
 
 ## Structure
 
 ```
 ├── app.json                        # App metadata
-├── icon/
-│   └── base.png                    # App icon (512×512)
 ├── connection/
-│   ├── parameters.json             # Connection dialog fields (API key + base URL)
-│   └── communication.json          # Auth validation request
+│   ├── parameters.json             # Connection dialog fields (API key)
+│   └── communication.json          # Auth validation (GET /open/workspaces)
 ├── webhook/
 │   ├── parameters.json             # Webhook parameters (form selection)
-│   ├── attach.json                 # Register webhook with OpnForm API
-│   └── detach.json                 # Unregister webhook from OpnForm API
+│   ├── attach.json                 # Register webhook (POST /open/forms/{id}/integrations)
+│   └── detach.json                 # Unregister webhook (DELETE /open/forms/{id}/integrations/{id})
 ├── modules/
 │   └── watchNewSubmissions/
 │       ├── communication.json      # Incoming webhook data processing
-│       ├── expect.json             # Module parameters (form/workspace selectors)
-│       ├── interface.json          # Output field definitions
-│       └── samples.json            # Sample output for field mapping
+│       └── expect.json             # Module parameters (form/workspace selectors)
 └── rpcs/
-    ├── listWorkspaces.json         # Dynamic dropdown for workspaces
-    └── listForms.json              # Dynamic dropdown for forms
+    ├── listWorkspaces.json         # Dynamic dropdown (GET /open/workspaces)
+    └── listForms.json              # Dynamic dropdown (GET /open/workspaces/{id}/forms) with pagination
 ```
 
-## API Endpoints (OpnForm Side)
+## API Endpoints Used
 
-The app calls these endpoints on the OpnForm API (authenticated via Sanctum API token):
+All endpoints are part of OpnForm's existing API, authenticated via Bearer token (Sanctum):
 
 | Endpoint | Method | Purpose |
 |---|---|---|
-| `/external/make/validate` | GET | Validate API key, return user info |
-| `/external/make/workspaces` | GET | List user's workspaces |
-| `/external/make/forms?workspace_id=X` | GET | List forms in a workspace |
-| `/external/make/webhook` | POST | Register webhook (attach) |
-| `/external/make/webhook` | DELETE | Unregister webhook (detach) |
-| `/external/make/submissions/recent?form_id=X` | GET | Poll sample data for structure detection |
+| `/open/workspaces` | GET | Validate API key + list workspaces |
+| `/open/workspaces/{id}/forms` | GET | List forms (paginated, 10/page) |
+| `/open/forms/{id}/integrations` | POST | Create Make integration (attach webhook) |
+| `/open/forms/{id}/integrations/{integrationId}` | DELETE | Remove integration (detach webhook) |
 
 ## Setup in Make
 
@@ -75,5 +73,5 @@ Docs: [developers.make.com/custom-apps-documentation](https://developers.make.co
 
 ## Related
 
-- [OpnForm main repository](https://github.com/OpnForm/OpnForm) -- contains the API endpoints and integration handler
+- [OpnForm main repository](https://github.com/OpnForm/OpnForm) -- contains the integration handler
 - [OpnForm documentation](https://docs.opnform.com)
