@@ -2,7 +2,7 @@
 
 Configuration files for the [OpnForm](https://opnform.com) custom app on [Make.com](https://www.make.com) (formerly Integromat).
 
-This app provides a **"Watch New Submissions"** instant trigger so Make users can automate workflows whenever a form receives a submission -- the same scope as [Fillout's Make integration](https://www.make.com/en/integrations/fillout).
+This app provides a **"Watch New Submissions"** instant trigger so Make users can automate workflows whenever a form receives a submission.
 
 ## How It Works
 
