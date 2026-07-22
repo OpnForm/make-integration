@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "theme": "#3b82f6",
     "categories": [
-        "forms-and-surveys"
+        "surveys-and-forms"
     ],
     "baseUrl": "https://api.opnform.com"
 }
