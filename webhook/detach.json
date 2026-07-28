@@ -1,8 +1,4 @@
 {
-    "url": "{{ifempty(connection.baseUrl, 'https://api.opnform.com')}}/open/forms/{{parameters.formId}}/integrations/{{webhook.data.externalHookId}}",
-    "method": "DELETE",
-    "headers": {
-        "Authorization": "Bearer {{connection.apiKey}}",
-        "Accept": "application/json"
-    }
+    "url": "/open/forms/{{parameters.formId}}/integrations/{{webhook.externalHookId}}",
+    "method": "DELETE"
 }

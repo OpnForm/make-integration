@@ -20,6 +20,11 @@
         "label": "Submission ID"
     },
     {
+        "name": "edit_link",
+        "type": "url",
+        "label": "Edit Submission URL"
+    },
+    {
         "name": "data",
         "type": "collection",
         "label": "Form Fields",
