@@ -1,6 +1,9 @@
 {
     "url": "/open/workspaces/{{parameters.workspaceId}}/forms",
     "method": "GET",
+    "qs": {
+        "per_page": 100
+    },
     "response": {
         "output": {
             "label": "{{item.title}}",
