@@ -1,0 +1,17 @@
+{
+    "baseUrl": "{{ifempty(connection.baseUrl, 'https://api.opnform.com')}}",
+    "headers": {
+        "Authorization": "Bearer {{connection.apiKey}}",
+        "Accept": "application/json"
+    },
+    "response": {
+        "error": {
+            "message": "[{{statusCode}}] {{ifempty(body.message, ifempty(body.error, 'Request failed'))}}"
+        }
+    },
+    "log": {
+        "sanitize": [
+            "request.headers.authorization"
+        ]
+    }
+}

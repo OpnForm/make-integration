@@ -1,8 +1,5 @@
 {
-    "url": "{{ifempty(connection.baseUrl, 'https://api.opnform.com')}}/open/workspaces",
-    "headers": {
-        "Authorization": "Bearer {{connection.apiKey}}"
-    },
+    "url": "/open/workspaces",
     "response": {
         "output": {
             "label": "{{item.name}}",

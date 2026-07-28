@@ -1,10 +1,8 @@
 {
-    "url": "{{ifempty(connection.baseUrl, 'https://api.opnform.com')}}/open/forms/{{parameters.formId}}/integrations",
+    "url": "/open/forms/{{parameters.formId}}/integrations",
     "method": "POST",
     "headers": {
-        "Authorization": "Bearer {{connection.apiKey}}",
-        "Content-Type": "application/json",
-        "Accept": "application/json"
+        "Content-Type": "application/json"
     },
     "body": {
         "integration_id": "make",

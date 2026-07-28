@@ -20,7 +20,7 @@ This integration follows the same lightweight pattern as OpnForm's Activepieces 
 ## Structure
 
 ```
-├── app.json                        # App metadata
+├── base.iml.json                   # Shared API base URL, authorization, errors, and log sanitization
 ├── connection/
 │   ├── parameters.json             # Connection dialog fields (API key)
 │   └── communication.json          # Auth validation (GET /open/workspaces)
@@ -68,8 +68,8 @@ Docs: [developers.make.com/custom-apps-documentation](https://developers.make.co
 
 1. Install the [Make Apps Editor](https://marketplace.visualstudio.com/items?itemName=Integromat.apps-sdk) VS Code extension
 2. Generate a Make API key with `sdk-apps` scopes from your Make account
-3. Connect the extension and sync the configs from this repo
-4. Edit and test locally, then push changes to Make
+3. Connect the extension to the existing Make app using the `Production` origin in `makecomapp.json`
+4. Run `npm test`, then deploy the configs to the Testing origin before Production
 
 ## Related
 
