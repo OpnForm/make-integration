@@ -11,7 +11,7 @@ This app provides a **"Watch New Submissions"** instant trigger so Make users ca
 3. Selects a workspace and form from dynamic dropdowns
 4. Make auto-registers a webhook via OpnForm's standard integration API
 5. On each form submission, OpnForm POSTs data to Make's webhook
-6. When the scenario is deleted, Make auto-unregisters the webhook
+6. When the webhook is deleted, Make auto-unregisters it from OpnForm
 
 ## Architecture
 
@@ -26,15 +26,16 @@ This integration follows the same lightweight pattern as OpnForm's Activepieces 
 │   └── communication.json          # Auth validation (GET /open/workspaces)
 ├── webhook/
 │   ├── parameters.json             # Webhook parameters (form selection)
+│   ├── communication.json          # Convert the incoming request body to a Make bundle
 │   ├── attach.json                 # Register webhook (POST /open/forms/{id}/integrations)
 │   └── detach.json                 # Unregister webhook (DELETE /open/forms/{id}/integrations/{id})
 ├── modules/
 │   └── watchNewSubmissions/
-│       ├── communication.json      # Incoming webhook data processing
+│       ├── communication.json      # Empty: the paired webhook already produces the bundle
 │       └── expect.json             # Module parameters (form/workspace selectors)
 └── rpcs/
     ├── listWorkspaces.json         # Dynamic dropdown (GET /open/workspaces)
-    └── listForms.json              # Dynamic dropdown (GET /open/workspaces/{id}/forms) with pagination
+    └── listForms.json              # Dynamic dropdown (GET /open/workspaces/{id}/forms) with bounded pagination
 ```
 
 ## API Endpoints Used
@@ -44,7 +45,7 @@ All endpoints are part of OpnForm's existing API, authenticated via Bearer token
 | Endpoint | Method | Purpose |
 |---|---|---|
 | `/open/workspaces` | GET | Validate API key + list workspaces |
-| `/open/workspaces/{id}/forms` | GET | List forms (paginated, 10/page) |
+| `/open/workspaces/{id}/forms` | GET | List forms (paginated, up to 100/page) |
 | `/open/forms/{id}/integrations` | POST | Create Make integration (attach webhook) |
 | `/open/forms/{id}/integrations/{integrationId}` | DELETE | Remove integration (detach webhook) |
 

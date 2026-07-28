@@ -1,4 +1,4 @@
 {
-    "url": "/open/forms/{{parameters.formId}}/integrations/{{webhook.externalHookId}}",
+    "url": "/open/forms/{{webhook.formId}}/integrations/{{webhook.externalHookId}}",
     "method": "DELETE"
 }

@@ -14,7 +14,8 @@
     },
     "response": {
         "data": {
-            "externalHookId": "{{body.form_integration.id}}"
+            "externalHookId": "{{body.form_integration.id}}",
+            "formId": "{{parameters.formId}}"
         }
     }
 }

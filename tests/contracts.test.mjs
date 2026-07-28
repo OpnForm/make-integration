@@ -22,12 +22,24 @@ test('production origin targets the real Make app', async () => {
 })
 
 test('attached webhook persists and reuses the remote integration id', async () => {
+    const communication = await readJson('webhook/communication.json')
     const attach = await readJson('webhook/attach.json')
     const detach = await readJson('webhook/detach.json')
 
+    assert.equal(communication.output, '{{body}}')
+    assert.equal(communication.respond.status, 200)
     assert.equal(attach.response.data.externalHookId, '{{body.form_integration.id}}')
+    assert.equal(attach.response.data.formId, '{{parameters.formId}}')
+    assert.match(detach.url, /{{webhook\.formId}}/)
     assert.match(detach.url, /{{webhook\.externalHookId}}/)
+    assert.doesNotMatch(detach.url, /parameters\.formId/)
     assert.doesNotMatch(detach.url, /webhook\.data/)
+})
+
+test('instant trigger preserves the bundle produced by its webhook', async () => {
+    const communication = await readJson('modules/watchNewSubmissions/communication.json')
+
+    assert.deepEqual(communication, {})
 })
 
 test('form RPC follows the Laravel resource pagination envelope', async () => {
@@ -43,7 +55,7 @@ test('form RPC follows the Laravel resource pagination envelope', async () => {
     assert.equal(rpc.pagination.condition, '{{body.links.next}}')
     assert.equal(response.links.next.endsWith('page=2'), true)
     assert.equal(response.next_page_url, undefined)
-    assert.equal(rpc.qs, undefined)
+    assert.equal(rpc.qs.per_page, 100)
 })
 
 test('trigger interface exposes dynamic fields and optional edit link', async () => {
