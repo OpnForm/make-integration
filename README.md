@@ -32,6 +32,7 @@ This integration follows the same lightweight pattern as OpnForm's Activepieces 
 ├── modules/
 │   ├── watchNewSubmissions/
 │   │   ├── communication.json      # Empty: the paired webhook already produces the bundle
+│   │   ├── parameters.json         # Empty: form/workspace selectors belong to the webhook
 │   │   └── expect.json             # Empty: form/workspace selectors belong to the webhook
 │   └── makeAnApiCall/              # Authorized REST universal module using relative API paths
 └── rpcs/
