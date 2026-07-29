@@ -2,20 +2,20 @@
 
 Configuration files for the [OpnForm](https://opnform.com) custom app on [Make.com](https://www.make.com) (formerly Integromat).
 
-This app provides a **"Watch New Submissions"** instant trigger so Make users can automate workflows whenever a form receives a submission, plus the required **"Make an API Call"** universal module for authorized requests to the OpnForm API.
+This app provides a **"Watch new submissions"** instant trigger so Make users can automate workflows whenever a form receives a submission, plus the required **"Make an API call"** universal module for authorized requests to the OpnForm API.
 
 ## How It Works
 
 1. User searches "OpnForm" in Make's module picker
 2. Creates a connection using their OpnForm API key (Sanctum token)
 3. Selects a workspace and form from dynamic dropdowns
-4. Make auto-registers a webhook via OpnForm's standard integration API
-5. On each form submission, OpnForm POSTs data to Make's webhook
+4. Make auto-registers the dedicated `make` integration via OpnForm's standard integration API
+5. On each form submission, OpnForm POSTs the Make-specific payload to Make's webhook
 6. When the webhook is deleted, Make auto-unregisters it from OpnForm
 
 ## Architecture
 
-This integration follows the same lightweight pattern as OpnForm's Activepieces integration. It uses OpnForm's **existing `/open/*` API** -- no dedicated Make endpoints are needed.
+This integration follows the same lightweight pattern as OpnForm's Activepieces integration. It uses OpnForm's **existing `/open/*` API** -- no dedicated Make endpoints are needed. The existing API accepts `integration_id: "make"` through OpnForm's integration registry and dispatches submissions through `MakeIntegration`, which removes the deprecated generic `submission` field and exposes `form_id`, `form_title`, `form_slug`, `submission_id`, optional `edit_link`, and `data`.
 
 ## Structure
 
@@ -46,7 +46,7 @@ All endpoints are part of OpnForm's existing API, authenticated via Bearer token
 | Endpoint | Method | Purpose |
 |---|---|---|
 | `/open/workspaces` | GET | Validate API key + list workspaces |
-| `/open/workspaces/{id}/forms` | GET | List forms (paginated, up to 100/page) |
+| `/open/workspaces/{id}/forms` | GET | List forms (paginated, up to 100/page and 300 results per picker load) |
 | `/open/forms/{id}/integrations` | POST | Create Make integration (attach webhook) |
 | `/open/forms/{id}/integrations/{integrationId}` | DELETE | Remove integration (detach webhook) |
 | Any relative path selected by the user | Any supported REST method | Universal authorized API call |
@@ -62,7 +62,7 @@ Docs: [developers.make.com/custom-apps-documentation](https://developers.make.co
 3. Click **+ Create app** and name it `opnform` (label: "OpnForm")
 4. Configure the **Connection** using `connection/parameters.json` and `connection/communication.json`
 5. Create a **Webhook** (dedicated + attached) using `webhook/` configs
-6. Create an **Instant Trigger** module "Watch New Submissions" using `modules/watchNewSubmissions/` configs
+6. Create an **Instant Trigger** module "Watch new submissions" using `modules/watchNewSubmissions/` configs
 7. Create **RPCs** `listWorkspaces` and `listForms` using `rpcs/` configs
 8. Test end-to-end with a real OpnForm API key
 9. Submit for marketplace review (review takes ~4-6 weeks)

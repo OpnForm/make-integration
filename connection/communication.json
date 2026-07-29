@@ -5,10 +5,11 @@
     },
     "response": {
         "metadata": {
+            "type": "text",
             "value": "{{body.length}} workspace(s)"
         },
         "error": {
-            "message": "{{body.message}}"
+            "message": "[{{statusCode}}] {{ifempty(body.message, 'Request failed')}}"
         }
     },
     "log": {
