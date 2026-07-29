@@ -27,7 +27,9 @@ test('attached webhook persists and reuses the remote integration id', async () 
     const detach = await readJson('webhook/detach.json')
 
     assert.equal(communication.output, '{{body}}')
+    assert.equal(communication.respond.type, 'json')
     assert.equal(communication.respond.status, 200)
+    assert.equal(attach.body.integration_id, 'make')
     assert.equal(attach.response.data.externalHookId, '{{body.form_integration.id}}')
     assert.equal(attach.response.data.formId, '{{parameters.formId}}')
     assert.match(detach.url, /{{webhook\.formId}}/)
@@ -53,11 +55,47 @@ test('form RPC follows the Laravel resource pagination envelope', async () => {
     }
 
     assert.equal(rpc.response.iterate, '{{body.data}}')
+    assert.equal(rpc.response.limit, 300)
     assert.equal(rpc.pagination.url, '{{body.links.next}}')
     assert.equal(rpc.pagination.condition, '{{body.links.next}}')
     assert.equal(response.links.next.endsWith('page=2'), true)
     assert.equal(response.next_page_url, undefined)
     assert.equal(rpc.qs.per_page, 100)
+})
+
+test('connection protects its domain and explains the required token abilities', async () => {
+    const parameters = await readJson('connection/parameters.json')
+    const communication = await readJson('connection/communication.json')
+    const apiKey = parameters.find(({ name }) => name === 'apiKey')
+    const baseUrl = parameters.find(({ name }) => name === 'baseUrl')
+
+    assert.match(apiKey.help, /workspaces-read/)
+    assert.match(apiKey.help, /forms-read/)
+    assert.match(apiKey.help, /manage-integrations/)
+    assert.equal(baseUrl.editable, false)
+    assert.match(baseUrl.help, /cannot be changed/)
+    assert.equal(communication.response.metadata.type, 'text')
+    assert.equal(
+        communication.response.error.message,
+        "[{{statusCode}}] {{ifempty(body.message, 'Request failed')}}"
+    )
+})
+
+test('user-facing labels follow Make sentence case', async () => {
+    const manifest = await readJson('makecomapp.json')
+    const parameters = await readJson('connection/parameters.json')
+    const triggerInterface = await readJson('modules/watchNewSubmissions/interface.json')
+    const universalExpect = await readJson('modules/makeAnApiCall/expect.json')
+
+    assert.equal(manifest.components.connection.apiKeyAuth.label, 'OpnForm API key')
+    assert.equal(manifest.components.module.watchNewSubmissions.label, 'Watch new submissions')
+    assert.equal(manifest.components.module.makeAnApiCall.label, 'Make an API call')
+    assert.equal(parameters.find(({ name }) => name === 'baseUrl').label, 'API base URL')
+    assert.equal(triggerInterface.find(({ name }) => name === 'form_title').label, 'Form title')
+    assert.equal(triggerInterface.find(({ name }) => name === 'form_slug').label, 'Form slug')
+    assert.equal(triggerInterface.find(({ name }) => name === 'edit_link').label, 'Edit submission URL')
+    assert.equal(triggerInterface.find(({ name }) => name === 'data').label, 'Form fields')
+    assert.equal(universalExpect.find(({ name }) => name === 'qs').label, 'Query string')
 })
 
 test('trigger interface exposes dynamic fields and optional edit link', async () => {

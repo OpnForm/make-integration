@@ -2,15 +2,16 @@
     {
         "name": "apiKey",
         "type": "password",
-        "label": "OpnForm API Key",
-        "help": "Generate an API key from your [OpnForm account settings](https://opnform.com/home?user-settings=access-tokens).",
+        "label": "OpnForm API key",
+        "help": "Generate an API key from your [OpnForm account settings](https://opnform.com/home?user-settings=access-tokens) with the `workspaces-read`, `forms-read`, and `manage-integrations` abilities.",
         "required": true
     },
     {
         "name": "baseUrl",
         "type": "url",
-        "label": "API Base URL",
-        "help": "Leave empty for OpnForm Cloud. For self-hosted instances, enter your API URL (e.g. `https://api.your-domain.com`).",
-        "default": "https://api.opnform.com"
+        "label": "API base URL",
+        "help": "Leave the default for OpnForm Cloud. For self-hosted instances, enter your API URL (e.g. `https://api.your-domain.com`). This URL cannot be changed after the connection is created.",
+        "default": "https://api.opnform.com",
+        "editable": false
     }
 ]

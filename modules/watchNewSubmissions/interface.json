@@ -7,12 +7,12 @@
     {
         "name": "form_title",
         "type": "text",
-        "label": "Form Title"
+        "label": "Form title"
     },
     {
         "name": "form_slug",
         "type": "text",
-        "label": "Form Slug"
+        "label": "Form slug"
     },
     {
         "name": "submission_id",
@@ -22,12 +22,12 @@
     {
         "name": "edit_link",
         "type": "url",
-        "label": "Edit Submission URL"
+        "label": "Edit submission URL"
     },
     {
         "name": "data",
         "type": "collection",
-        "label": "Form Fields",
+        "label": "Form fields",
         "spec": []
     }
 ]

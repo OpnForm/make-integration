@@ -9,7 +9,7 @@
     "components": {
         "connection": {
             "apiKeyAuth": {
-                "label": "OpnForm API Key",
+                "label": "OpnForm API key",
                 "connectionType": "basic",
                 "codeFiles": {
                     "communication": "connection/communication.json",
@@ -20,7 +20,7 @@
         },
         "webhook": {
             "newSubmission": {
-                "label": "New Submission",
+                "label": "New submission",
                 "webhookType": "web",
                 "connection": "apiKeyAuth",
                 "codeFiles": {
@@ -32,7 +32,7 @@
         },
         "module": {
             "watchNewSubmissions": {
-                "label": "Watch New Submissions",
+                "label": "Watch new submissions",
                 "description": "Triggers when a new form submission is received.",
                 "moduleType": "instant_trigger",
                 "connection": "apiKeyAuth",
@@ -45,7 +45,7 @@
                 }
             },
             "makeAnApiCall": {
-                "label": "Make an API Call",
+                "label": "Make an API call",
                 "description": "Performs an arbitrary authorized API call.",
                 "moduleType": "universal",
                 "connection": "apiKeyAuth",
@@ -60,14 +60,14 @@
         },
         "rpc": {
             "listWorkspaces": {
-                "label": "List Workspaces",
+                "label": "List workspaces",
                 "connection": "apiKeyAuth",
                 "codeFiles": {
                     "communication": "rpcs/listWorkspaces.json"
                 }
             },
             "listForms": {
-                "label": "List Forms",
+                "label": "List forms",
                 "connection": "apiKeyAuth",
                 "codeFiles": {
                     "communication": "rpcs/listForms.json"
