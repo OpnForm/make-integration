@@ -39,6 +39,7 @@
                 "webhook": "newSubmission",
                 "codeFiles": {
                     "communication": "modules/watchNewSubmissions/communication.json",
+                    "parameters": "modules/watchNewSubmissions/parameters.json",
                     "mappableParams": "modules/watchNewSubmissions/expect.json",
                     "interface": "modules/watchNewSubmissions/interface.json",
                     "samples": "modules/watchNewSubmissions/samples.json"

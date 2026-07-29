@@ -39,11 +39,13 @@ test('attached webhook persists and reuses the remote integration id', async () 
 })
 
 test('instant trigger preserves the bundle produced by its webhook', async () => {
+    const staticParameters = await readJson('modules/watchNewSubmissions/parameters.json')
     const communication = await readJson('modules/watchNewSubmissions/communication.json')
-    const parameters = await readJson('modules/watchNewSubmissions/expect.json')
+    const mappableParameters = await readJson('modules/watchNewSubmissions/expect.json')
 
     assert.deepEqual(communication, {})
-    assert.deepEqual(parameters, [])
+    assert.deepEqual(staticParameters, [])
+    assert.deepEqual(mappableParameters, [])
 })
 
 test('form RPC follows the Laravel resource pagination envelope', async () => {
