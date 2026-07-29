@@ -2,7 +2,7 @@
 
 Configuration files for the [OpnForm](https://opnform.com) custom app on [Make.com](https://www.make.com) (formerly Integromat).
 
-This app provides a **"Watch New Submissions"** instant trigger so Make users can automate workflows whenever a form receives a submission.
+This app provides a **"Watch New Submissions"** instant trigger so Make users can automate workflows whenever a form receives a submission, plus the required **"Make an API Call"** universal module for authorized requests to the OpnForm API.
 
 ## How It Works
 
@@ -30,9 +30,10 @@ This integration follows the same lightweight pattern as OpnForm's Activepieces 
 │   ├── attach.json                 # Register webhook (POST /open/forms/{id}/integrations)
 │   └── detach.json                 # Unregister webhook (DELETE /open/forms/{id}/integrations/{id})
 ├── modules/
-│   └── watchNewSubmissions/
-│       ├── communication.json      # Empty: the paired webhook already produces the bundle
-│       └── expect.json             # Module parameters (form/workspace selectors)
+│   ├── watchNewSubmissions/
+│   │   ├── communication.json      # Empty: the paired webhook already produces the bundle
+│   │   └── expect.json             # Empty: form/workspace selectors belong to the webhook
+│   └── makeAnApiCall/              # Authorized REST universal module using relative API paths
 └── rpcs/
     ├── listWorkspaces.json         # Dynamic dropdown (GET /open/workspaces)
     └── listForms.json              # Dynamic dropdown (GET /open/workspaces/{id}/forms) with bounded pagination
@@ -48,6 +49,7 @@ All endpoints are part of OpnForm's existing API, authenticated via Bearer token
 | `/open/workspaces/{id}/forms` | GET | List forms (paginated, up to 100/page) |
 | `/open/forms/{id}/integrations` | POST | Create Make integration (attach webhook) |
 | `/open/forms/{id}/integrations/{integrationId}` | DELETE | Remove integration (detach webhook) |
+| Any relative path selected by the user | Any supported REST method | Universal authorized API call |
 
 ## Setup in Make
 
