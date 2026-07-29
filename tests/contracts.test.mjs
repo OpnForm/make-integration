@@ -38,8 +38,10 @@ test('attached webhook persists and reuses the remote integration id', async () 
 
 test('instant trigger preserves the bundle produced by its webhook', async () => {
     const communication = await readJson('modules/watchNewSubmissions/communication.json')
+    const parameters = await readJson('modules/watchNewSubmissions/expect.json')
 
     assert.deepEqual(communication, {})
+    assert.deepEqual(parameters, [])
 })
 
 test('form RPC follows the Laravel resource pagination envelope', async () => {
@@ -65,6 +67,19 @@ test('trigger interface exposes dynamic fields and optional edit link', async ()
 
     assert.deepEqual(data.spec, [])
     assert.equal(editLink.type, 'url')
+})
+
+test('universal module only accepts relative API paths and uses the app connection', async () => {
+    const manifest = await readJson('makecomapp.json')
+    const universal = manifest.components.module.makeAnApiCall
+    const communication = await readJson('modules/makeAnApiCall/communication.json')
+    const parameters = await readJson('modules/makeAnApiCall/expect.json')
+
+    assert.equal(universal.moduleType, 'universal')
+    assert.equal(universal.connection, 'apiKeyAuth')
+    assert.equal(communication.url, '{{parameters.url}}')
+    assert.doesNotMatch(communication.url, /^https?:\/\//)
+    assert.match(parameters.find(({ name }) => name === 'url').help, /\/open\/workspaces/)
 })
 
 test('Make requests use relative open API paths inherited from Base', async () => {

@@ -43,6 +43,19 @@
                     "interface": "modules/watchNewSubmissions/interface.json",
                     "samples": "modules/watchNewSubmissions/samples.json"
                 }
+            },
+            "makeAnApiCall": {
+                "label": "Make an API Call",
+                "description": "Performs an arbitrary authorized API call.",
+                "moduleType": "universal",
+                "connection": "apiKeyAuth",
+                "codeFiles": {
+                    "communication": "modules/makeAnApiCall/communication.json",
+                    "parameters": "modules/makeAnApiCall/parameters.json",
+                    "mappableParams": "modules/makeAnApiCall/expect.json",
+                    "interface": "modules/makeAnApiCall/interface.json",
+                    "samples": "modules/makeAnApiCall/samples.json"
+                }
             }
         },
         "rpc": {
