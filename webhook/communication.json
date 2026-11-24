@@ -1,4 +1,5 @@
 {
+    "condition": "{{if(data.webhookSecret, get(headers, 'x-webhook-signature') = 'sha256=' + sha256(ifempty(rawBody, ''), 'hex', data.webhookSecret), false)}}",
     "output": "{{body}}",
     "respond": {
         "type": "json",

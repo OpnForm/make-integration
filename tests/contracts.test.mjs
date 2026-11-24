@@ -26,10 +26,19 @@ test('attached webhook persists and reuses the remote integration id', async () 
     const attach = await readJson('webhook/attach.json')
     const detach = await readJson('webhook/detach.json')
 
+    assert.equal(
+        communication.condition,
+        "{{if(data.webhookSecret, get(headers, 'x-webhook-signature') = 'sha256=' + sha256(ifempty(rawBody, ''), 'hex', data.webhookSecret), false)}}"
+    )
     assert.equal(communication.output, '{{body}}')
     assert.equal(communication.respond.type, 'json')
     assert.equal(communication.respond.status, 200)
     assert.equal(attach.body.integration_id, 'make')
+    assert.equal(attach.temp.webhookSecret, '{{uuid}}')
+    assert.equal(attach.body.data.webhook_secret, '{{temp.webhookSecret}}')
+    assert.equal(attach.response.data.webhookSecret, '{{temp.webhookSecret}}')
+    assert.ok(attach.log.sanitize.includes('request.body.data.webhook_secret'))
+    assert.ok(attach.log.sanitize.includes('response.body.form_integration.data.webhook_secret'))
     assert.equal(attach.response.data.externalHookId, '{{body.form_integration.id}}')
     assert.equal(attach.response.data.formId, '{{parameters.formId}}')
     assert.match(detach.url, /{{webhook\.formId}}/)
@@ -74,9 +83,12 @@ test('connection protects its domain and explains the required token abilities',
     assert.match(apiKey.help, /workspaces-read/)
     assert.match(apiKey.help, /forms-read/)
     assert.match(apiKey.help, /manage-integrations/)
+    assert.equal(apiKey.editable, true)
     assert.equal(baseUrl.editable, false)
+    assert.match(baseUrl.help, /https:\/\/forms\.your-domain\.com\/api/)
     assert.match(baseUrl.help, /cannot be changed/)
     assert.equal(communication.response.metadata.type, 'text')
+    assert.equal(communication.response.metadata.value, '{{length(body)}} workspace(s)')
     assert.equal(
         communication.response.error.message,
         "[{{statusCode}}] {{ifempty(body.message, 'Request failed')}}"

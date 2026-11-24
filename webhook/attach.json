@@ -9,13 +9,25 @@
         "status": "active",
         "logic": null,
         "data": {
-            "webhook_url": "{{webhook.url}}"
+            "webhook_url": "{{webhook.url}}",
+            "webhook_secret": "{{temp.webhookSecret}}"
         }
     },
     "response": {
         "data": {
             "externalHookId": "{{body.form_integration.id}}",
-            "formId": "{{parameters.formId}}"
+            "formId": "{{parameters.formId}}",
+            "webhookSecret": "{{temp.webhookSecret}}"
         }
+    },
+    "temp": {
+        "webhookSecret": "{{uuid}}"
+    },
+    "log": {
+        "sanitize": [
+            "request.headers.authorization",
+            "request.body.data.webhook_secret",
+            "response.body.form_integration.data.webhook_secret"
+        ]
     }
 }
