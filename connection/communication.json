@@ -6,7 +6,7 @@
     "response": {
         "metadata": {
             "type": "text",
-            "value": "{{body.length}} workspace(s)"
+            "value": "{{length(body)}} workspace(s)"
         },
         "error": {
             "message": "[{{statusCode}}] {{ifempty(body.message, 'Request failed')}}"

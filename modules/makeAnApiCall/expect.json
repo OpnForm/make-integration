@@ -1,6 +1,6 @@
 [
     {
-        "help": "Enter a path relative to the configured OpnForm API base URL. For example: /open/workspaces",
+        "help": "Enter a path relative to `https://api.opnform.com` or your self-hosted API URL. For example, `/open/workspaces`.",
         "name": "url",
         "type": "text",
         "label": "URL",
@@ -38,18 +38,22 @@
     {
         "help": "You don't have to add authorization headers; we already did that for you.",
         "name": "headers",
-        "spec": [
-            {
-                "name": "key",
-                "type": "text",
-                "label": "Key"
-            },
-            {
-                "name": "value",
-                "type": "text",
-                "label": "Value"
-            }
-        ],
+        "spec": {
+            "type": "collection",
+            "label": "Header",
+            "spec": [
+                {
+                    "name": "key",
+                    "type": "text",
+                    "label": "Key"
+                },
+                {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                }
+            ]
+        },
         "type": "array",
         "label": "Headers",
         "default": [
@@ -57,24 +61,34 @@
                 "key": "Content-Type",
                 "value": "application/json"
             }
-        ]
+        ],
+        "labels": {
+            "add": "Add header"
+        }
     },
     {
         "name": "qs",
-        "spec": [
-            {
-                "name": "key",
-                "type": "text",
-                "label": "Key"
-            },
-            {
-                "name": "value",
-                "type": "text",
-                "label": "Value"
-            }
-        ],
+        "spec": {
+            "type": "collection",
+            "label": "Parameter",
+            "spec": [
+                {
+                    "name": "key",
+                    "type": "text",
+                    "label": "Key"
+                },
+                {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                }
+            ]
+        },
         "type": "array",
-        "label": "Query string"
+        "label": "Query string",
+        "labels": {
+            "add": "Add parameter"
+        }
     },
     {
         "name": "body",

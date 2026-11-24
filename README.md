@@ -10,7 +10,7 @@ This app provides a **"Watch new submissions"** instant trigger so Make users ca
 2. Creates a connection using their OpnForm API key (Sanctum token)
 3. Selects a workspace and form from dynamic dropdowns
 4. Make auto-registers the dedicated `make` integration via OpnForm's standard integration API
-5. On each form submission, OpnForm POSTs the Make-specific payload to Make's webhook
+5. On each form submission, OpnForm sends the Make-specific payload with an HMAC signature. Make checks the signature before creating a bundle.
 6. When the webhook is deleted, Make auto-unregisters it from OpnForm
 
 ## Architecture
@@ -74,6 +74,12 @@ Docs: [developers.make.com/custom-apps-documentation](https://developers.make.co
 2. Generate a Make API key with `sdk-apps` scopes from your Make account
 3. Connect the extension to the existing Make app using the `Production` origin in `makecomapp.json`
 4. Run `npm test`, then deploy the configs to the Testing origin before Production
+
+## Rollout and verification
+
+Deploy an OpnForm API version that signs Make deliveries before activating this configuration in Make. For self-hosted connections, upgrade the OpnForm instance first. Recreate each previously attached webhook in Make and select the new webhook in its scenario so the attach request stores a signing secret on both sides. Webhooks attached before the upgrade stop producing bundles once Make enforces signature verification.
+
+In a test scenario, attach a fresh webhook, submit a real form response, and confirm that Make produces the expected bundle. Verify that unsigned deliveries and deliveries with an invalid signature produce no bundle. Detach and reattach the webhook, then confirm that a new form response produces a bundle again.
 
 ## Related
 
